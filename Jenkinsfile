@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
                 steps {
-                    sh 'docker build -f dockerfile . -t genedy/dajngoo:v1.0'
+                    sh 'docker build -f dockerfile . -t genedy377/dajngoo:v1.0'
                       }
                    post{
                     success{
@@ -16,13 +16,13 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId:"docker",usernameVariable:"USERNAME",passwordVariable:"PASSWORD")]){
                 sh 'docker login --username $USERNAME --password $PASSWORD'
-                sh 'docker push genedy/dajngoo:v1.0'
+                sh 'docker push genedy377/dajngoo:v1.0'
                 }
             }
         }
          stage('Deploy') {
             steps {
-                sh 'docker run -d -p 7000:3000 genedy/dajngoo:v1.0'
+                sh 'docker run -d -p 7000:3000 genedy377/dajngoo:v1.0'
             }  
     }
   }
