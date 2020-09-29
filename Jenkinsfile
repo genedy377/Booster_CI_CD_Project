@@ -37,5 +37,5 @@ pipeline{
                     slackSend (color: '#E8E209', message: "SUCCESSES: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})console") 
                     
                  }
-          
+        }
 }
