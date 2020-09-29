@@ -19,7 +19,7 @@ pipeline{
           stage('Deploy'){
             steps{
 
-                sh 'docker run -d  -p 8081:8000  genedy377/booster_ci_cd_project:v1.0'
+                sh 'docker run -d  -p 8000:3000  genedy377/booster_ci_cd_project:v1.0'
 
             }
           }
