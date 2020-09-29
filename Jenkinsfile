@@ -6,7 +6,7 @@ pipeline{
                 sh 'docker build -f Dockerfile  . -t genedy377/booster_ci_cd_project:v1.0'
             }
          }
-           stage('Push Image'){
+          stage('Push Image'){
             steps{
 
                 withCredentials([usernamePassword(credentialsId:"docker",usernameVariable:"USERNAME",passwordVariable:"PASSWORD")]) {
@@ -15,16 +15,15 @@ pipeline{
                 }
 
             }
-         } 
+         }  
           stage('Deploy'){
             steps{
 
-                sh 'docker run -d  -p 8000:3000  genedy377/booster_ci_cd_project:v1.0'
+                sh 'docker run -d  -p 8081:8000  genedy377/booster_ci_cd_project:v1.0'
 
             }
           }
         }
-        
         post
         {
           success{
@@ -36,6 +35,12 @@ pipeline{
           aborted{
                     slackSend (color: '#E8E209', message: "SUCCESSES: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})console") 
                     
+                 }
+          always {
+    	// Choose one of these options
+
+        //publishStoplight consoleOrFile: 'console'
+               publishStoplight consoleOrFile: 'console', resultFile: "${env.WORKSPACE}/prism.log"   // Use double-quote to have env variables replacement
                  }
         }
 }
