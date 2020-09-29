@@ -36,11 +36,6 @@ pipeline{
                     slackSend (color: '#E8E209', message: "SUCCESSES: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})console") 
                     
                  }
-          always {
-    	// Choose one of these options
-
-        //publishStoplight consoleOrFile: 'console'
-               publishStoplight consoleOrFile: 'console', resultFile: "${env.WORKSPACE}/prism.log"   // Use double-quote to have env variables replacement
-                 }
+         
         }
 }
