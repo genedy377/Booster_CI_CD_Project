@@ -6,16 +6,7 @@ pipeline{
                 sh 'docker build -f Dockerfile  . -t genedy377/booster_ci_cd_project:v1.0'
             }
          }
-          
-          stage('Deploy'){
-            steps{
-
-                sh 'docker run -d  -p 8000:3000  genedy377/booster_ci_cd_project:v1.0'
-
-            }
-          }
-        }
-        stage('Push Image'){
+           stage('Push Image'){
             steps{
 
                 withCredentials([usernamePassword(credentialsId:"docker",usernameVariable:"USERNAME",passwordVariable:"PASSWORD")]) {
@@ -24,7 +15,16 @@ pipeline{
                 }
 
             }
-         }  
+         } 
+          stage('Deploy'){
+            steps{
+
+                sh 'docker run -d  -p 8000:3000  genedy377/booster_ci_cd_project:v1.0'
+
+            }
+          }
+        }
+        
         post
         {
           success{
